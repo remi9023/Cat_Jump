@@ -25,8 +25,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //점프
-        if (Input.GetKeyDown(KeyCode.Space)&& rigid2D.velocity.Equals(0)) //Y축 속도가 0일때만 점프가 가능하게
+        if (Input.GetKeyDown(KeyCode.Space)&& rigid2D.velocity.y==0) //Y축 속도가 0일때만 점프가 가능하게
         {
+            anim.SetTrigger("JumpTrigger");
             this.rigid2D.AddForce(transform.up*this.jumpForce);//업 방향으로 포스만큼 곱하기
             print("점프!");
         }   
