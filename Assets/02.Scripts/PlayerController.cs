@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //점프
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)&& rigid2D.velocity.Equals(0)) //Y축 속도가 0일때만 점프가 가능하게
         {
             this.rigid2D.AddForce(transform.up*this.jumpForce);//업 방향으로 포스만큼 곱하기
             print("점프!");
@@ -50,13 +50,20 @@ public class PlayerController : MonoBehaviour
         if (key != 0)
         {
             transform.localScale = new Vector3 (key,1,1);
-
-            
         }
 
-        //애니메이션 속도
+        //애니메이션 속도 (플레이어 속도에 따라)
         anim.speed = speedX / 2.0f;
-
+        
+        //플레이어가 화면밖으로 나가면 처음부터.
+        if(transform.position.y<-10)
+        {
+            SceneManager.LoadScene("GameScene");
+        }
+        if (transform.position.x < -3 || transform.position.x>3)
+        {
+            SceneManager.LoadScene("GameScene");
+        }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
